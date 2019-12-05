@@ -1,0 +1,54 @@
+# VisualOdom CMake config file
+#
+# This file sets the following variables:
+# VisualOdom_FOUND - Always TRUE.
+# VisualOdom_INCLUDE_DIRS - Directories containing the VisualOdom include files.
+# VisualOdom_IDL_DIRS - Directories containing the VisualOdom IDL files.
+# VisualOdom_LIBRARIES - Libraries needed to use VisualOdom.
+# VisualOdom_DEFINITIONS - Compiler flags for VisualOdom.
+# VisualOdom_VERSION - The version of VisualOdom found.
+# VisualOdom_VERSION_MAJOR - The major version of VisualOdom found.
+# VisualOdom_VERSION_MINOR - The minor version of VisualOdom found.
+# VisualOdom_VERSION_REVISION - The revision version of VisualOdom found.
+# VisualOdom_VERSION_CANDIDATE - The candidate version of VisualOdom found.
+
+message(STATUS "Found VisualOdom-@PROJECT_VERSION@")
+set(VisualOdom_FOUND TRUE)
+
+find_package(<dependency> REQUIRED)
+
+#set(VisualOdom_INCLUDE_DIRS
+#    "@CMAKE_INSTALL_PREFIX@/include/@PROJECT_NAME_LOWER@-@PROJECT_VERSION_MAJOR@"
+#    ${<dependency>_INCLUDE_DIRS}
+#    )
+#
+#set(VisualOdom_IDL_DIRS
+#    "@CMAKE_INSTALL_PREFIX@/include/@PROJECT_NAME_LOWER@-@PROJECT_VERSION_MAJOR@/idl")
+set(VisualOdom_INCLUDE_DIRS
+    "@CMAKE_INSTALL_PREFIX@/include/@CPACK_PACKAGE_FILE_NAME@"
+    ${<dependency>_INCLUDE_DIRS}
+    )
+set(VisualOdom_IDL_DIRS
+    "@CMAKE_INSTALL_PREFIX@/include/@CPACK_PACKAGE_FILE_NAME@/idl")
+
+
+if(WIN32)
+    set(VisualOdom_LIBRARIES
+        "@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@@PROJECT_NAME_LOWER@@CMAKE_STATIC_LIBRARY_SUFFIX@"
+        ${<dependency>_LIBRARIES}
+        )
+else(WIN32)
+    set(VisualOdom_LIBRARIES
+        "@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@@PROJECT_NAME_LOWER@@CMAKE_SHARED_LIBRARY_SUFFIX@"
+        ${<dependency>_LIBRARIES}
+        )
+endif(WIN32)
+
+set(VisualOdom_DEFINITIONS ${<dependency>_DEFINITIONS})
+
+set(VisualOdom_VERSION @PROJECT_VERSION@)
+set(VisualOdom_VERSION_MAJOR @PROJECT_VERSION_MAJOR@)
+set(VisualOdom_VERSION_MINOR @PROJECT_VERSION_MINOR@)
+set(VisualOdom_VERSION_REVISION @PROJECT_VERSION_REVISION@)
+set(VisualOdom_VERSION_CANDIDATE @PROJECT_VERSION_CANDIDATE@)
+

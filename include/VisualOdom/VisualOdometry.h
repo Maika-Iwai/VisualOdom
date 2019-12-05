@@ -1,0 +1,89 @@
+//////////////////////////////////////////////////////////////////////////////
+//VisualOdometry Class
+//Programed by Maika Iwai, Robot System Design Laboratory, Meijo University
+//
+//プログラム解説:
+//このプログラムではRGB-Dセンサを用いてビジュアルオドメトリを推定します．
+//
+//依存関係:
+//Intel® RealSense™ SDK
+//https://github.com/IntelRealSense/librealsense
+//
+//バージョン情報:
+//librealsense 2.28.0(2019/12/04時点)
+//
+//ライセンス:MIT License
+//
+//////////////////////////////////////////////////////////////////////////////
+
+#ifndef VISUAL_ODOMETRY
+#define VISUAL_ODOMETRY
+
+#include <librealsense2/rs.hpp>
+#define RS_T265 0
+#define RS_D435I 1
+
+struct Pose3D
+{
+    double x;
+    double y;
+    double z;
+};
+
+struct Quaternion
+{
+    double x;
+    double y;
+    double z;
+    double w;
+};
+
+struct Pose3DQuaternion
+{
+    Pose3D trans;
+    Quaternion rot;
+};
+
+class VisualOdometry{
+public:
+  //=========================================================================
+  //初期化関数(USB接続RealSense)
+  //プログラムの最初で呼び出す関数．RealSenseとの接続を行う．
+  //
+  //引数：
+  //type：RealSenseの種類
+  //
+  //返り値：
+  //true: 正常終了　false: 異常発生(表示されるエラー内容を参照)
+  //=========================================================================
+  bool Init(int type);
+  //=========================================================================
+  //データ取得関数
+  //プログラムの終了時に呼び出す関数．RealSenseとの切断を行う．
+  //
+  //引数：
+  //
+  //
+  //返り値：
+  //true: 終了
+  //=========================================================================
+  bool Close();
+  //=========================================================================
+  //データ取得関数
+  //RealSenseからデータを取得し，カメラの位置姿勢を返す．
+  //
+  //引数：
+  //
+  //
+  //返り値：
+  //p3dq: 位置姿勢データ
+  //=========================================================================
+  Pose3DQuaternion GetData();
+  
+private:
+  rs2::pipeline pipe;
+  rs2::config cfg;
+};
+
+#endif VISUAL_ODOMETRY
+
