@@ -9,7 +9,7 @@ module RTC {
   struct TimedPose3DQuaternion
   {
 RTC::Time tm;
-RTC::Pose3D pose3D;
+RTC::Point3D point3D;
 RTC::Quaternion quaternion;
   };
 

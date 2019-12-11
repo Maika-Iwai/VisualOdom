@@ -105,16 +105,16 @@ RTC::ReturnCode_t VisualOdom::onExecute(RTC::UniqueId ec_id)
   p3dq = vo.GetData();
 
   //出力用変数へ位置姿勢データを格納
-  m_pose3DQuaternion.pose3D.position.x = p3dq.trans.x;
-  m_pose3DQuaternion.pose3D.position.y = p3dq.trans.y;
-  m_pose3DQuaternion.pose3D.position.z = p3dq.trans.z;
+  m_pose3DQuaternion.point3D.x = p3dq.trans.x;
+  m_pose3DQuaternion.point3D.y = p3dq.trans.y;
+  m_pose3DQuaternion.point3D.z = p3dq.trans.z;
   m_pose3DQuaternion.quaternion.x = p3dq.rot.x;
   m_pose3DQuaternion.quaternion.y = p3dq.rot.y;
   m_pose3DQuaternion.quaternion.z = p3dq.rot.z;
   m_pose3DQuaternion.quaternion.w = p3dq.rot.w;
   
   //位置情報を端末に表示
-  printf("\rposition(x, y, z) = (%5.2f, %5.2f, %5.2f)", m_pose3DQuaternion.pose3D.position.x, m_pose3DQuaternion.pose3D.position.y, m_pose3DQuaternion.pose3D.position.z);
+  printf("\r(px, py, pz, tx, ty, tz, tw) = (%5.2f, %5.2f, %5.2f, %5.2f, %5.2f, %5.2f)", m_pose3DQuaternion.point3D.x, m_pose3DQuaternion.point3D.y, m_pose3DQuaternion.point3D.z, m_pose3DQuaternion.quaternion.x, m_pose3DQuaternion.quaternion.y, m_pose3DQuaternion.quaternion.z, m_pose3DQuaternion.quaternion.w);
   
   //出力
   m_pose3DQuaternionOut.write();
